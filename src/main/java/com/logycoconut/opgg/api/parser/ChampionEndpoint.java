@@ -1,6 +1,6 @@
 package com.logycoconut.opgg.api.parser;
 
-import com.logycoconut.opgg.api.constraint.Role;
+import com.logycoconut.opgg.api.enums.Role;
 import com.logycoconut.opgg.api.entity.ChampionRole;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
@@ -14,7 +14,7 @@ import java.util.Set;
 
 /**
  * @author hall
- * @description 获取全部英雄基本信息及其常用位置的层级
+ * @description 获取全部英雄基本信息、常用位置的层级、周免英雄
  * @date 2021-01-11 22:53
  */
 @Slf4j

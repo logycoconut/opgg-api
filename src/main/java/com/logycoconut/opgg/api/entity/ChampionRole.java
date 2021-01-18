@@ -1,6 +1,6 @@
 package com.logycoconut.opgg.api.entity;
 
-import com.logycoconut.opgg.api.constraint.Role;
+import com.logycoconut.opgg.api.enums.Role;
 import lombok.Data;
 
 /**

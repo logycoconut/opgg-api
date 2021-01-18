@@ -1,4 +1,4 @@
-package com.logycoconut.opgg.api.constraint;
+package com.logycoconut.opgg.api.enums;
 
 /**
  * @author hall

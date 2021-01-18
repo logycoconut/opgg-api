@@ -8,6 +8,7 @@
         <version>2.4.0</version>
         <relativePath/>
     </parent>
+
     <groupId>com.logycoco.opensource</groupId>
     <artifactId>opgg-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
