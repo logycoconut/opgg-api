@@ -1,6 +1,9 @@
 package com.logycoconut.opgg.api.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author hall
@@ -8,6 +11,9 @@ import lombok.Data;
  * @date 2021-01-13 21:42
  */
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Champion {
 
     private String nameZh;

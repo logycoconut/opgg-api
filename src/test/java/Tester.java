@@ -1,25 +1,33 @@
+import com.logycoconut.opgg.api.entity.Champion;
+import com.logycoconut.opgg.api.parser.ChampionEndpoint;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author hall
  * @description
  * @date 2021-01-12 22:46
  */
+//@SpringBootTest
 class Tester {
 
     @Test
     void testUrl() throws Exception {
-        // 解析URL地址  第一个参数为访问的url 第二个参数是访问时候的超时时间
-        Document document = Jsoup.connect("https://www.op.gg/champion/statistics/")
-                .header("Accept-Language", "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7")
-                .timeout(60000)
-                .get();
+        ChampionEndpoint championEndpoint = new ChampionEndpoint();
+        Document document = championEndpoint.request();
+        Elements championItems = document.select(".champion-trend-tier .champion-index-table tbody");
 
-        Elements elements = document.select(".champion-index__champion-list .champion-index__champion-item");
-        elements.forEach(System.out::println);
+        Map<String, List<Champion>> champions = championEndpoint.getChampionTier(championItems);
+        System.out.println(champions);
+
     }
 
 

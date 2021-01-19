@@ -17,5 +17,6 @@ public class ChampionRole extends Champion{
     private String tier;
     private String winRate;
     private String pickRate;
+    private String rankingChange;
 
 }
