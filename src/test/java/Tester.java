@@ -1,6 +1,5 @@
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.junit.jupiter.api.Test;
 
@@ -19,8 +18,11 @@ class Tester {
                 .timeout(60000)
                 .get();
 
-        Elements select = document.select(".champion-index__champion-list .champion-index__champion-item");
-        System.out.println(select.first().classNames());
+        Elements elements = document.select(".champion-index__champion-list .champion-index__champion-item");
+        elements.forEach(System.out::println);
     }
+
+
+
 
 }
