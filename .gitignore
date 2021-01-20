@@ -1,6 +1,3 @@
-# Compiled class file
-*.class
-
 # Log file
 *.log
 
@@ -19,6 +16,6 @@
 *.tar.gz
 *.rar
 
-#
+*.iml
 .idea
-
+.target
