@@ -1,8 +1,8 @@
 package com.logycoconut.opgg.api.entity;
 
 import com.logycoconut.opgg.api.enums.Role;
+import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 /**
  * @author hall
@@ -10,9 +10,11 @@ import lombok.EqualsAndHashCode;
  * @date 2021-01-13 22:18
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class ChampionRole extends Champion{
+@Builder
+public class ChampionRole {
 
+    private String nameZh;
+    private String nameEn;
     private Role role;
     private String tier;
     private String winRate;
