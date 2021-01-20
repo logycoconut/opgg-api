@@ -1,8 +1,8 @@
-package com.logycoconut.opgg.api.parser;
+package com.logycoconut.opgg.api.endpoint;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.logycoconut.opgg.api.exception.GlobalException;
+import com.logycoconut.opgg.api.response.StatusCode;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -37,7 +37,7 @@ public interface BaseEndpoint {
      *
      * @return 解析后的数据
      */
-    String parse() throws JsonProcessingException;
+    String parse();
 
     /**
      * 通用请求方法
@@ -51,7 +51,7 @@ public interface BaseEndpoint {
                     .timeout(60000)
                     .get();
         } catch (IOException exception) {
-            throw new GlobalException(exception.getMessage());
+            throw new GlobalException(StatusCode.CONNECT_ERROR);
         }
     }
 

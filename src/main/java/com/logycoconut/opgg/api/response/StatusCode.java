@@ -7,7 +7,7 @@ import lombok.Getter;
  * @date 2021/1/20
  */
 @Getter
-public enum  StatusCode {
+public enum StatusCode {
 
     /**
      * 状态码
@@ -15,7 +15,9 @@ public enum  StatusCode {
 
     SUCCESS(200, "ok"),
     FAILED(500, "failed"),
-    CONNECT_ERROR(500001, "源文档请求失败")
+    CONNECT_ERROR(500001, "源文档请求失败"),
+    JSON_PROCESS_ERROR(500002, "Java Object to Json 失败"),
+    DOM_EXTRACT_ERROR(500003, "Java Object to Json 失败"),
 
 
     ;

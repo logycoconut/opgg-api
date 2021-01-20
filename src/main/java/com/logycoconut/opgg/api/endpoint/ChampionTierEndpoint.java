@@ -1,11 +1,14 @@
-package com.logycoconut.opgg.api.parser;
+package com.logycoconut.opgg.api.endpoint;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.logycoconut.opgg.api.entity.ChampionRole;
+import com.logycoconut.opgg.api.exception.GlobalException;
+import com.logycoconut.opgg.api.response.StatusCode;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +21,7 @@ import java.util.stream.Collectors;
  * @date 2021-01-20 13:51
  */
 @Slf4j
+@Component
 public class ChampionTierEndpoint implements BaseEndpoint {
 
     @Override
@@ -26,32 +30,40 @@ public class ChampionTierEndpoint implements BaseEndpoint {
     }
 
     @Override
-    public String parse() throws JsonProcessingException {
+    public String parse() {
         log.info("当前请求URL：{}", this.path());
         Document document = this.request();
 
-        // 获取英雄层级
-        Map<String, List<ChampionRole>> roleChampionsMap = new HashMap<>(5);
-        document.select(".champion-trend-tier .champion-index-table tbody")
-                .forEach(positionItem -> {
-                    // 构建 role - champions Map
-                    String role = positionItem.className().substring(28).toLowerCase();
-                    Elements championItemElements = positionItem.select("tr");
-                    List<ChampionRole> championList = championItemElements
-                            .stream()
-                            .map(itemElement -> ChampionRole.builder()
-                                    .nameZh(extractChampionName(itemElement))
-                                    .winRate(extractWinRate(itemElement))
-                                    .pickRate(extractPickRate(itemElement))
-                                    .tier(extractTier(itemElement))
-                                    .rankingChange(extractRankingChanged(itemElement)).build()
-                            )
-                            .collect(Collectors.toList());
-                    roleChampionsMap.put(role, championList);
-                });
-        log.info("英雄T级解析成功");
+        try {
+            // 获取英雄层级
+            Map<String, List<ChampionRole>> roleChampionsMap = new HashMap<>(5);
+            document.select(".champion-trend-tier .champion-index-table tbody")
+                    .forEach(positionItem -> {
+                        // 构建 role - champions Map
+                        String role = positionItem.className().substring(28).toLowerCase();
+                        Elements championItemElements = positionItem.select("tr");
+                        List<ChampionRole> championList = championItemElements
+                                .stream()
+                                .map(itemElement -> ChampionRole.builder()
+                                        .nameZh(extractChampionName(itemElement))
+                                        .winRate(extractWinRate(itemElement))
+                                        .pickRate(extractPickRate(itemElement))
+                                        .tier(extractTier(itemElement))
+                                        .rankingChange(extractRankingChanged(itemElement)).build()
+                                )
+                                .collect(Collectors.toList());
+                        roleChampionsMap.put(role, championList);
+                    });
 
-        return MAPPER.writeValueAsString(roleChampionsMap);
+            log.info("英雄T级解析成功");
+            return MAPPER.writeValueAsString(roleChampionsMap);
+        } catch (JsonProcessingException e) {
+            log.info("Java Object to Json 失败:{}", "roleChampionsMap");
+            throw new GlobalException(StatusCode.JSON_PROCESS_ERROR);
+        } catch (Exception e) {
+            log.info("全部英雄基本信息数据解析失败");
+            throw new GlobalException(StatusCode.DOM_EXTRACT_ERROR);
+        }
     }
 
     /**

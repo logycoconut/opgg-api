@@ -1,6 +1,5 @@
 package com.logycoconut.opgg.api.entity;
 
-import com.logycoconut.opgg.api.enums.Role;
 import lombok.Builder;
 import lombok.Data;
 
@@ -15,7 +14,6 @@ public class ChampionRole {
 
     private String nameZh;
     private String nameEn;
-    private Role role;
     private String tier;
     private String winRate;
     private String pickRate;
