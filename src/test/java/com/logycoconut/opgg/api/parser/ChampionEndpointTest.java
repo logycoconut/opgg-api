@@ -1,24 +1,31 @@
 package com.logycoconut.opgg.api.parser;
 
+import com.logycoconut.opgg.api.endpoint.ChampionEndpoint;
+import com.logycoconut.opgg.api.endpoint.ChampionFreeEndpoint;
+import com.logycoconut.opgg.api.endpoint.ChampionTierEndpoint;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 /**
  * @author hall
  * @date 2021/1/20
  */
 @SpringBootTest
-@RunWith(SpringRunner.class)
 class ChampionEndpointTest {
 
     @Autowired
     private ChampionEndpoint championEndpoint;
 
+    @Autowired
+    private ChampionFreeEndpoint championFreeEndpoint;
+
+    @Autowired
+    private ChampionTierEndpoint championTierEndpoint;
+
     @Test
     void parse() {
-//        championEndpoint.parse()
+        String parse = championTierEndpoint.parse();
+        System.out.println(parse);
     }
 }
