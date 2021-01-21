@@ -30,7 +30,7 @@ public class ChampionFreeEndpoint implements BaseEndpoint {
     public String parse() {
         try {
             log.info("当前请求URL：{}", this.path());
-            Document document = this.request();
+            Document document = this.request(this.path());
 
             // 获取周免英雄
             List<Champion> freeChampionList = document

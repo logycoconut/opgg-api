@@ -32,7 +32,7 @@ public class ChampionTierEndpoint implements BaseEndpoint {
     @Override
     public String parse() {
         log.info("当前请求URL：{}", this.path());
-        Document document = this.request();
+        Document document = this.request(this.path());
 
         try {
             // 获取英雄层级

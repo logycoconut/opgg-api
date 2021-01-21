@@ -1,6 +1,7 @@
 package com.logycoconut.opgg.api.endpoint;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.logycoconut.opgg.api.entity.ChampionForm;
 import com.logycoconut.opgg.api.exception.GlobalException;
 import com.logycoconut.opgg.api.response.StatusCode;
 import org.jsoup.Jsoup;
@@ -37,16 +38,27 @@ public interface BaseEndpoint {
      *
      * @return 解析后的数据
      */
-    String parse();
+    default String parse() {
+        return "";
+    }
+
+    /**
+     * 带参解析方法
+     *
+     * @return 解析后的数据
+     */
+    default String parse(ChampionForm champion) {
+        return "";
+    }
 
     /**
      * 通用请求方法
      *
      * @return dom文档
      */
-    default Document request() {
+    default Document request(String path) {
         try {
-            return Jsoup.connect(this.path())
+            return Jsoup.connect(path)
                     .header("Accept-Language", "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7")
                     .timeout(60000)
                     .get();
